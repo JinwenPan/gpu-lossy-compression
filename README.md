@@ -38,22 +38,22 @@ The program consists of two main parts: **Compression** and **Decompression**.
 **Notes**:
 - `input.data` is a binary input file to be compressed.
 - `-t`: data type of the input file. Only `f32` (float32) is supported for the time being.
-- `--dim3 [DimX]x[DimY]x[DimZ]`: dimensions of the input grid data. `DimX` is the number of elements in the fastest (continuous)dimension, while `DimZ` is the slowest.
-- `-e [REL_ERROR_BOUND]`: range-based relative error bound corresponding the mode `r2r`.
+- `--dim3 [DimX]x[DimY]x[DimZ]`: dimensions of the input grid data. `DimX` is the number of elements in the fastest (continuous) dimension, while `DimZ` is the slowest.
+- `-e [REL_ERROR_BOUND]`: range-based relative error bound corresponding the mode `r2r` such as 1e-2.
 - `--predictor spline3`: predictor. A weaker `lorenzo` predictor is also supported.
-- `-s`: `cr` (Huffman-integrated lossless pipeline, slower but higher compression ratio) or `tp` (Huffman-free lossless pipeline, lower compression ratio but fast).
+- `-s`: `cr` (Huffman-integrated lossless pipeline, slower but higher compression ratio) or `tp` (Huffman-free lossless pipeline, lower compression ratio but fast). `cr` is used by default. 
 - Add `-a rd-first` if you need better rate-distortion rather than a maximized compression ratio under a fixed error bound.  
 
----
+After the compression is completed, the statistics will be printed to the terminal, and the corresponding compressed file (with the `.cusza` extension) will be generated in the same directory as the input file.
 
 ### Decompression
 
 ```
-./cuszhi --report time -x -i [input.data.cusza] --compare input.data
+./cuszhi --report time -x -i [input.data.cusza] --compare [input.data]
 ```
 
 **Notes**:
 - `input.data.cusza` is the compressed file to be decompressed.
 - `--compare input.data` is optional. It compares the decompressed data with the original data.
 
----
+Similarly, after the decompression is completed, the statistics will be printed to the terminal, and the corresponding decompressed file (with the `.cuszx` extension) will be generated in the same directory as the input file.
